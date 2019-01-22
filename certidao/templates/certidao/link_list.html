@@ -22,3 +22,14 @@ Certidões
 </div>
 
 {% endblock content %}
+
+
+{% block javascript %}
+<script>
+var elemento = null
+$('a').on("click",function(){
+    $(this).addClass("active")
+})
+</script>    
+{% endblock javascript %}
+    
