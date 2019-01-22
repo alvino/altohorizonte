@@ -56,8 +56,12 @@ WSGI_APPLICATION = 'altohorizonte.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dbds6iucac4ijh',
+        'USER': 'vlujvsoypqogwm',
+        'PASSWORD': 'de692d09642ea23a4d45fd50a0bdf990b9f26bbcb401c45b85e483357f9a2bb3',
+        'HOST': 'ec2-54-243-228-140.compute-1.amazonaws.com',
+        'PORT': '5432', 
     }
 }
 
