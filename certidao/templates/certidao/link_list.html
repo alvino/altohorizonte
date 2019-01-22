@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Certidões
+{% endblock title %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-4">
+        <div class="list-group">
+            {% for link in object_list %}
+            <a 
+                href="{{link.link}}" 
+                class="list-group-item list-group-item-action" 
+                target="_blank">{{link.label}}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
