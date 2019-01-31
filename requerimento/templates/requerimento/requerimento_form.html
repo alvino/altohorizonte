@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+Solicitação
+{% endblock title %}
+
+
+{% block style %}
+<style>
+.delete-row {
+    margin: 10px;
+}
+</style>
+{% endblock style %}
+    
+    
+{% block script %}
+<script src=" {% static 'js/jquery.formset.js' %}"></script>
+{% endblock script %}
+    
+{% block javascript %}
+<script type="text/javascript">
+
+    var adiciona = '<i class="fas fa-plus-square fa-lg"></i>'
+    var remove = '<i class="fas fa-trash fa-lg"></i>'
+
+    $('.itemRequerido_formset_row').formset({
+        addText: adiciona,
+        deleteText: remove,
+        prefix: 'itemrequerido_set'
+    });
+
+    $('.assinatura_formset_row').formset({
+        addText: adiciona,
+        deleteText: remove,
+        prefix: 'assinatura_set'
+    });
+    
+</script>
+{% endblock javascript %}
+
+  
+
+{% block content %}
+<div>
+    <h1>Solicitação</h1>
+    <form action="." method="post">
+        {% csrf_token %}
+        <fieldset>
+            <div class="col-md-6">
+                {{ form.as_p }}
+            </div>
+        </fieldset>
+        <fieldset>
+            
+            <div class="col-md-6">
+                   
+                <table class="table">
+                    {{ itemRequerido_form.management_form }}
+        
+                    {% for form in itemRequerido_form.forms %}
+                        {% if forloop.first %}
+                            <thead>
+                            <tr>
+                                {% for field in form.visible_fields %}
+                                    <th>{{ field.label|capfirst }}</th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                        {% endif %}
+                        <tr class="itemRequerido_formset_row">
+                            {% for field in form.visible_fields %}
+                                <td>
+                                    {# Include the hidden fields in the form #}
+                                    {% if forloop.first %}
+                                        {% for hidden in form.hidden_fields %}
+                                            {{ hidden }}
+                                        {% endfor %}
+                                    {% endif %}
+                                    {{ field.errors.as_ul }}
+                                    {{ field }}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            </div>
+        </fieldset>
+        <fieldset>
+            
+            <div class="col-md-6">
+                <table class="table">
+                    {{ assinatura_form.management_form }}
+        
+                    {% for form in assinatura_form.forms %}
+                        {% if forloop.first %}
+                            <thead>
+                            <tr>
+                                {% for field in form.visible_fields %}
+                                    <th>{{ field.label|capfirst }}</th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                        {% endif %}
+                        <tr class="assinatura_formset_row">
+                            {% for field in form.visible_fields %}
+                                <td>
+                                    {# Include the hidden fields in the form #}
+                                    {% if forloop.first %}
+                                        {% for hidden in form.hidden_fields %}
+                                            {{ hidden }}
+                                        {% endfor %}
+                                    {% endif %}
+                                    {{ field.errors.as_ul }}
+                                    {{ field }}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </fieldset>
+        <button name="submit" class="btn btn-primary btn-sm">Finalizar Solicitação</button>
+    </form>
+</div>
+{% endblock content %}

@@ -17,5 +17,5 @@ from django.urls import path
 from .views import LinkList
 
 urlpatterns = [
-    path('link_list', LinkList.as_view(), name='link_list')
+    path('link_list', LinkList.as_view(), name='link_list'),
 ]
