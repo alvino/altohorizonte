@@ -51,15 +51,6 @@ class Fornecedor(models.Model):
 
 # dados para requisicao compra direta
 
-class Produto(models.Model):
-    descricao = models.CharField(max_length=150)
-
-
-
-    def __str__(self):
-        return self.descricao
-
-
 class Requerimento(models.Model):
     origem = models.ForeignKey(Secretaria, on_delete=models.CASCADE)
     destino = models.ForeignKey(CentroCusto, on_delete=models.CASCADE)
@@ -78,9 +69,11 @@ class Assinatura(models.Model):
 class ItemRequerido(models.Model):
     quantidade = models.IntegerField()
     unidade = models.ForeignKey(Unidade, on_delete=models.CASCADE)
-    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    descricao = models.CharField(max_length=200)
     requerimento = models.ForeignKey(Requerimento, on_delete=models.CASCADE)
 
+
+# Ata de Registro de Preço (ARP)
 
 class AtaRegistoPreco(models.Model):
     contrato = models.CharField(max_length=10)

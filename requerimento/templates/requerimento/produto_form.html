@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+Produto
+{% endblock title %}
+
+
+{% block content %}
+<div class="col-md-10">
+    {% if form.subject.errors %}
+    <ol>
+        {% for error in form.subject.errors %}
+        <li><strong>{{ error|escape }}</strong></li>
+        {% endfor %}
+    </ol>
+    {% endif %}
+
+    <form action="." method="post">
+        {% csrf_token %}
+
+        {% for field in form.visible_fields %}
+        <div class="form-group">
+            {{ field.label_tag }} {{ field }}
+        </div>
+        {% endfor %}
+
+        <div class=form-group>
+            <button name="submit" class="btn btn-primary btn-sm">Salvar</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

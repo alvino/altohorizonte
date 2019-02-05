@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+Lista Solicitação
+{% endblock title %}
+
+
+{% block style %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css" rel="stylesheet" />
+<style>
+    @page {
+        size: A4
+    }
+
+    body {
+        font: 12px sans-serif;
+        position: relative;
+    }
+
+    p {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    h4 {
+        font-size: 14px;
+        width: 100%;
+        text-align: center
+    }
+
+    h5 {
+        font-size: 12px;
+        width: 100%;
+        text-align: center
+    }
+
+    h6 {
+        font-size: 10px;
+        width: 100%;
+        text-align: center
+    }
+
+    img {
+        display: block;
+        max-width: 250px;
+        max-height: 110px;
+        width: auto;
+        height: auto;
+    }
+
+    .justify-content-center {
+        position: absolute;
+        bottom: 100px;
+        width: 100%;
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 5px;
+        width: 100%;
+        left: 0;
+    }
+</style>
+{% endblock style %}
+
+
+{% block script %}
+{% endblock script %}
+
+
+{% block javascript %}
+<script>
+    $('body').addClass("A4");
+</script>
+{% endblock javascript %}
+
+
+{% block content %}
+
+<section class="sheet padding-10mm">
+    <div class="row">
+        <img class="rounded" src="{% static 'imagens/logo-alto-horizonte.png' %}">
+    </div>
+    <div class="row">
+        <h4 class="center">SOLICITAÇÃO DE COMPRA/SERVIÇO</h4>
+    </div>
+
+    <div class="row requerimento">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th scope="row">Origem:</th>
+                    <td>{{requerimento.origem|linebreaks}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Destino:</th>
+                    <td>{{requerimento.destino|linebreaks}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Justificativa:</th>
+                    <td>{{requerimento.justificativa|linebreaks}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row itens">
+        <table class="table table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" style="width: 15%">QUANT.</th>
+                    <th scope="col" style="width: 15%">UNIDADE</th>
+                    <th scope="col" styel="text-align: center;">PRODUTO/SERVIÇO</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in itens_requeridos %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{item.quantidade}}</td>
+                    <td>{{item.unidade}}</td>
+                    <td>{{item.descricao|linebreaks}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p style="width:100%; text-align: right;">
+            Alto Horizonte, {{requerimento.criado|date:"d F Y"}}
+        </p>
+    </div>
+
+    <div class="row assinatura">
+        <div class="d-flex justify-content-center">
+            {% for assinatura in assinaturas %}
+            <div class="p-2">
+                <h5><b>{{assinatura.assinante.nome}}</b></h5>
+                <h5>{{assinatura.assinante.cargo}}</h5>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row footer">
+        <h6 class="center">AVENIDA MARACANÃ, QUADRA 15 LOTE 1, SETOR CENTRAL </h6>
+        <h6 class="center"> ALTO HOLRIZONTE-GO -CEP: 76.560-000 - TELEFONE:(62)3383-3100</h6>
+    </div>
+</section>
+{% endblock content %}

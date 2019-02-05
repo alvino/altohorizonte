@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+Lista Solicitação
+{% endblock title %}
+
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/responsive.bootstrap4.min.css' %}">
+{% endblock style %}
+
+
+{% block script %}
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/bootstrap4.min.js' %}"></script>
+<script src="{% static 'js/responsive.bootstrap4.min.js' %}"></script>
+<script src="{% static 'js/dataTables.select.min.js' %}"></script>
+<script src="{% static 'js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+{% endblock script %}
+
+{% block javascript %}
+<script>
+    $(document).ready(function () {
+        $('#requerimento_list').DataTable(
+            {
+                responsive: true,
+                columnDefs: [
+                    { "orderable": false, "targets": 8, "className": 'dt-body-center' },
+                ],
+
+                language: {
+                    "url": "{% static 'json/pt-br.json' %}",
+                }
+            }
+        );
+    });
+</script>
+{% endblock javascript %}
+
+
+{% block content %}
+
+<table id="requerimento_list" class="table table-hover nowrap " style="width:100%">
+    <thead class="thead-light">
+        <tr>
+            <th width="25%">Origem</th>
+            <th width="25%">Destino</th>
+            <th>justificativa</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for requerimento in object_list %}
+        <tr>
+            <td>{{ requerimento.origem.descricao|linebreaks }}</td>
+            <td>{{ requerimento.destino.descricao|linebreaks }}</td>
+            <td>
+                <a href="{% url 'requerimento_detail' requerimento.id %}">
+                    {{ requerimento.justificativa|linebreaks }}
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td>
+                Não a Dados na Tabela.
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+
+</table>
+
+{% endblock content %}

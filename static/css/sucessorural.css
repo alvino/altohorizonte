@@ -1,0 +1,137 @@
+/*ul.breadcrumb {
+    padding: 0;
+}
+ul.breadcrumb li {
+    display: inline-block;
+}
+ul.breadcrumb li a {
+    display: inline-block;
+    padding: 0.3em 0.7em;
+}
+*/
+
+  
+.breadcrumb { 
+  list-style: none; 
+  overflow: hidden; 
+  font: 18px Helvetica, Arial, Sans-Serif;
+}
+.breadcrumb li { 
+  float: left; 
+}
+.breadcrumb li a {
+  color: white;
+  text-decoration: none; 
+  padding: 10px 0 10px 55px;
+  background: 004aa1;                   /* fallback color */
+  background:  rgba(31,141,214,1.0); 
+  position: relative; 
+  display: block;
+  float: left;
+}
+.breadcrumb li a:after { 
+  content: " "; 
+  display: block; 
+  width: 0; 
+  height: 0;
+  border-top: 50px solid transparent;           /* Go big on the size, and let overflow hide */
+  border-bottom: 50px solid transparent;
+  border-left: 30px solid  rgba(31,141,214,1.0);
+  position: absolute;
+  top: 50%;
+  margin-top: -50px; 
+  left: 100%;
+  z-index: 2; 
+}   
+.breadcrumb li a:before { 
+  content: " "; 
+  display: block;
+  width: 0; 
+  height: 0;
+  border-top: 50px solid transparent;           /* Go big on the size, and let overflow hide */
+  border-bottom: 50px solid transparent;
+  border-left: 30px solid white;
+  position: absolute;
+  top: 50%;
+  margin-top: -50px; 
+  margin-left: 1px;
+  left: 100%;
+  z-index: 1; 
+}   
+.breadcrumb li:first-child a {
+  padding-left: 10px;
+}
+.breadcrumb li:nth-child(2) a       { background:        rgba(31,141,214,1.0); }
+.breadcrumb li:nth-child(2) a:after { border-left-color: rgba(31,141,214,1.0); }
+.breadcrumb li:nth-child(3) a       { background:        rgba(12, 116, 185, 1.0); }
+.breadcrumb li:nth-child(3) a:after { border-left-color: rgba(12, 116, 185, 1.0); }
+
+.breadcrumb li a:hover { background: rgba(7, 95, 153, 1.0); }
+.breadcrumb li a:hover:after { border-left-color: rgba(7, 95, 153, 1.0) !important; }
+
+
+
+
+
+.info, .success, .warning, .error, .validation {
+  border: 1px solid;
+  margin: 10px 0px;
+  padding: 15px 10px 15px 50px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+}
+.info {
+  color: #00529B;
+  background-color: #BDE5F8;
+  background-image: url('https://i.imgur.com/ilgqWuX.png');
+}
+.success {
+  color: #4F8A10;
+  background-color: #DFF2BF;
+  background-image: url('https://i.imgur.com/Q9BGTuy.png');
+}
+.warning {
+  color: #9F6000;
+  background-color: #FEEFB3;
+  background-image: url('https://i.imgur.com/Z8q7ww7.png');
+}
+.error{
+  color: #D8000C;
+  background-color: #FFBABA;
+  background-image: url('https://i.imgur.com/GnyDvKN.png');
+}
+.validation{
+  color: #D63301;
+  background-color: #FFCCBA;
+  background-image: url('https://i.imgur.com/GnyDvKN.png');
+}
+
+.pure-button-green { 
+  background-color: #1aa84c;
+  color: white;
+  text-shadow: 0 1px 1px rgb(22, 116, 29);
+}
+.pure-button-red {
+  background: rgb(202, 60, 60);
+  color: white;
+  text-shadow: 1px 1px 1px rgb(170, 46, 23);
+  
+}
+.pure-button-yellow {
+  background: rgb(247, 227, 12);
+  color: white;
+  text-shadow: -1px 1px 1px white;
+}
+.pure-button-wedding:hover,
+.pure-button-wedding:focus {
+  background-color: #555;
+  color: #eee;
+}
+.pure-button-wedding:active {
+  background-color: #222;
+  color: #fff;
+  box-shadow: none;
+}
+.custom-fonts {
+  font-family: 'Open Sans', sans-serif;
+}

@@ -4,23 +4,23 @@
 
 
 {% block title %}
-Solicitação
+Criando Solicitação
 {% endblock title %}
 
 
 {% block style %}
 <style>
-.delete-row {
+    .delete-row {
     margin: 10px;
 }
 </style>
 {% endblock style %}
-    
-    
+
+
 {% block script %}
 <script src=" {% static 'js/jquery.formset.js' %}"></script>
 {% endblock script %}
-    
+
 {% block javascript %}
 <script type="text/javascript">
 
@@ -28,103 +28,100 @@ Solicitação
     var remove = '<i class="fas fa-trash fa-lg"></i>'
 
     $('.itemRequerido_formset_row').formset({
-        addText: adiciona,
+        addText: adiciona+'<span style="margin: 10px;">Adicionar Item</span>',
         deleteText: remove,
         prefix: 'itemrequerido_set'
     });
 
     $('.assinatura_formset_row').formset({
-        addText: adiciona,
+        addText: adiciona+'<span style="margin: 10px;">Adicionar Assinatura</span>',
         deleteText: remove,
         prefix: 'assinatura_set'
     });
-    
+
 </script>
 {% endblock javascript %}
 
-  
 
 {% block content %}
-<div>
-    <h1>Solicitação</h1>
-    <form action="." method="post">
-        {% csrf_token %}
-        <fieldset>
-            <div class="col-md-6">
-                {{ form.as_p }}
-            </div>
-        </fieldset>
-        <fieldset>
-            
-            <div class="col-md-6">
-                   
-                <table class="table">
-                    {{ itemRequerido_form.management_form }}
-        
-                    {% for form in itemRequerido_form.forms %}
-                        {% if forloop.first %}
-                            <thead>
-                            <tr>
-                                {% for field in form.visible_fields %}
-                                    <th>{{ field.label|capfirst }}</th>
-                                {% endfor %}
-                            </tr>
-                            </thead>
-                        {% endif %}
-                        <tr class="itemRequerido_formset_row">
-                            {% for field in form.visible_fields %}
-                                <td>
-                                    {# Include the hidden fields in the form #}
-                                    {% if forloop.first %}
-                                        {% for hidden in form.hidden_fields %}
-                                            {{ hidden }}
-                                        {% endfor %}
-                                    {% endif %}
-                                    {{ field.errors.as_ul }}
-                                    {{ field }}
-                                </td>
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </table>
+<div class="col-md-10">
+    {% if form.subject.errors %}
+    <ol>
+        {% for error in form.subject.errors %}
+        <li><strong>{{ error|escape }}</strong></li>
+        {% endfor %}
+    </ol>
+    {% endif %}
 
+    <form method="post">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            {% for field in form.visible_fields %}
+            <div class="form-group">
+                {{ field.label_tag }} {{ field }}
             </div>
+            {% endfor %}
         </fieldset>
-        <fieldset>
-            
-            <div class="col-md-6">
-                <table class="table">
-                    {{ assinatura_form.management_form }}
-        
-                    {% for form in assinatura_form.forms %}
-                        {% if forloop.first %}
-                            <thead>
-                            <tr>
-                                {% for field in form.visible_fields %}
-                                    <th>{{ field.label|capfirst }}</th>
-                                {% endfor %}
-                            </tr>
-                            </thead>
-                        {% endif %}
-                        <tr class="assinatura_formset_row">
-                            {% for field in form.visible_fields %}
-                                <td>
-                                    {# Include the hidden fields in the form #}
-                                    {% if forloop.first %}
-                                        {% for hidden in form.hidden_fields %}
-                                            {{ hidden }}
-                                        {% endfor %}
-                                    {% endif %}
-                                    {{ field.errors.as_ul }}
-                                    {{ field }}
-                                </td>
-                            {% endfor %}
-                        </tr>
+        <fieldset class="form-group">
+            <table class="table table-hover">
+                {{ itemRequerido_form.management_form }}
+
+                {% for form in itemRequerido_form.forms %}
+                {% if forloop.first %}
+                <thead>
+                    <tr>
+                        {% for field in form.visible_fields %}
+                        <th>{{ field.label|capfirst }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                {% endif %}
+                <tr class="itemRequerido_formset_row">
+                    {% for field in form.visible_fields %}
+                    <td>
+                        {{ field.errors.as_ul }}
+                        {{ field }}
+                    </td>
                     {% endfor %}
-                </table>
-            </div>
+                </tr>
+                {% endfor %}
+            </table>
         </fieldset>
-        <button name="submit" class="btn btn-primary btn-sm">Finalizar Solicitação</button>
+        <fieldset class="form-group">
+            <table class="table table-hover">
+                {{ assinatura_form.management_form }}
+
+                {% for form in assinatura_form.forms %}
+                {% if forloop.first %}
+                <thead>
+                    <tr>
+                        {% for field in form.visible_fields %}
+                        <th>{{ field.label|capfirst }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                {% endif %}
+                <tr class="assinatura_formset_row">
+                    {% for field in form.visible_fields %}
+                    <td>
+                        {{ field.errors.as_ul }}
+                        {{ field }}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </fieldset>
+        <div class=form-group>
+            <button name="submit" class="btn btn-primary">Finalizar Solicitação</button>
+        </div>
     </form>
 </div>
+<datalist id="descricao_list">
+    
+    {% for option in descricoes %}
+        <option value="{{ option.descricao }}">
+    {% endfor %}
+        
+</datalist>
 {% endblock content %}

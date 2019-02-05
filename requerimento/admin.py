@@ -5,8 +5,7 @@ from .models import (
         Assinatura, 
         CentroCusto, 
         Requerimento, 
-        ItemRequerido, 
-        Produto, 
+        ItemRequerido,
         assinante,
         Unidade,
     )
@@ -19,8 +18,7 @@ class AssinaturaInline(admin.TabularInline):
 
 class ItemRequeridoInline(admin.TabularInline):
     model = ItemRequerido
-    extra = 2
-
+    extra = 1
 
 class RequerimentoAdmin(admin.ModelAdmin):
     inlines = [
@@ -32,7 +30,6 @@ class RequerimentoAdmin(admin.ModelAdmin):
 admin.site.register(Secretaria)
 admin.site.register(assinante)
 admin.site.register(CentroCusto)
-admin.site.register(Produto)
 admin.site.register(Unidade)
 admin.site.register(Requerimento, RequerimentoAdmin)
 
