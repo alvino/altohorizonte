@@ -10,60 +10,7 @@ Lista Solicitação
 
 {% block style %}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css" rel="stylesheet" />
-<style>
-    @page {
-        size: A4
-    }
-
-    body {
-        font: 12px sans-serif;
-        position: relative;
-    }
-
-    p {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    h4 {
-        font-size: 14px;
-        width: 100%;
-        text-align: center
-    }
-
-    h5 {
-        font-size: 12px;
-        width: 100%;
-        text-align: center
-    }
-
-    h6 {
-        font-size: 10px;
-        width: 100%;
-        text-align: center
-    }
-
-    img {
-        display: block;
-        max-width: 250px;
-        max-height: 110px;
-        width: auto;
-        height: auto;
-    }
-
-    .justify-content-center {
-        position: absolute;
-        bottom: 100px;
-        width: 100%;
-    }
-
-    .footer {
-        position: absolute;
-        bottom: 5px;
-        width: 100%;
-        left: 0;
-    }
-</style>
+<link href="{% static 'css/print.css' %}" rel="stylesheet" />
 {% endblock style %}
 
 
@@ -80,7 +27,7 @@ Lista Solicitação
 
 {% block content %}
 
-<section class="sheet padding-10mm">
+<section class="sheet padding-20mm">
     <div class="row">
         <img class="rounded" src="{% static 'imagens/logo-alto-horizonte.png' %}">
     </div>
@@ -125,12 +72,40 @@ Lista Solicitação
                     <td>{{item.unidade}}</td>
                     <td>{{item.descricao|linebreaks}}</td>
                 </tr>
+                
+                {% if forloop.counter == 20 %}
+            </tbody>
+        </table>
+    </div>
+    <div class="row footer">
+        <h6 class="center">AVENIDA MARACANÃ, QUADRA 15 LOTE 1, SETOR CENTRAL </h6>
+        <h6 class="center"> ALTO HOLRIZONTE-GO -CEP: 76.560-000 - TELEFONE:(62)3383-3100</h6>
+    </div>
+</section>
+<section class="sheet padding-20mm">
+    <div class="row">
+        <img class="rounded" src="{% static 'imagens/logo-alto-horizonte.png' %}">
+    </div>
+    <div class="row requerimento">
+        <table class="table table-sm" style="page-break-before: always;">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" style="width: 15%">QUANT.</th>
+                    <th scope="col" style="width: 15%">UNIDADE</th>
+                    <th scope="col" styel="text-align: center;">PRODUTO/SERVIÇO</th>
+
+                </tr>
+            </thead>
+            <tbody> 
+                {% endif %}
+                    
                 {% endfor %}
             </tbody>
         </table>
 
         <p style="width:100%; text-align: right;">
-            Alto Horizonte, {{requerimento.criado|date:"d F Y"}}
+            Alto Horizonte-GO, {{requerimento.data|date:"d F Y"}}
         </p>
     </div>
 

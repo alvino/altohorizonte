@@ -56,6 +56,7 @@ class Requerimento(models.Model):
     destino = models.ForeignKey(CentroCusto, on_delete=models.CASCADE)
     justificativa = models.TextField()
     criado = models.DateField(auto_now_add=True)
+    data = models.DateField()
     
     def __str__(self):
         return self.justificativa

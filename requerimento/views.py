@@ -29,7 +29,7 @@ class RequerimentoListView(ListView):
     model = Requerimento
 
 class RequerimentoCreateView(CreateView):
-    success_url = 'requerimento_create'
+    success_url = 'requerimento_list'
     model = Requerimento
     form_class = RequerimentoForm
     

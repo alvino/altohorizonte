@@ -11,6 +11,12 @@ Lista Solicitação
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/dataTables.bootstrap4.min.css' %}">
 <link rel="stylesheet" href="{% static 'css/responsive.bootstrap4.min.css' %}">
+<style>
+    .margen-10mm {
+        margin-bottom: 10mm;
+        margin-top: 10mm;
+    }
+</style>
 {% endblock style %}
 
 
@@ -29,9 +35,6 @@ Lista Solicitação
         $('#requerimento_list').DataTable(
             {
                 responsive: true,
-                columnDefs: [
-                    { "orderable": false, "targets": 8, "className": 'dt-body-center' },
-                ],
 
                 language: {
                     "url": "{% static 'json/pt-br.json' %}",
@@ -44,37 +47,41 @@ Lista Solicitação
 
 
 {% block content %}
+<div class="row margen-10mm">
+    <a class="btn btn-primary" href="{% url 'requerimento_create' %}" role="button">Novo</a>
+</div>
+<div class="row">
+    <table id="requerimento_list" class="table table-hover" style="width:100%">
+        <thead class="thead-light">
+            <tr>
+                <th width="25%">Origem</th>
+                <th width="25%">Destino</th>
+                <th>justificativa</th>
+            </tr>
+        </thead>
 
-<table id="requerimento_list" class="table table-hover nowrap " style="width:100%">
-    <thead class="thead-light">
-        <tr>
-            <th width="25%">Origem</th>
-            <th width="25%">Destino</th>
-            <th>justificativa</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        {% for requerimento in object_list %}
-        <tr>
-            <td>{{ requerimento.origem.descricao|linebreaks }}</td>
-            <td>{{ requerimento.destino.descricao|linebreaks }}</td>
-            <td>
-                <a href="{% url 'requerimento_detail' requerimento.id %}">
-                    {{ requerimento.justificativa|linebreaks }}
-                </a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td>
-                Não a Dados na Tabela.
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
+        <tbody>
+            {% for requerimento in object_list %}
+            <tr>
+                <td>{{ requerimento.origem.descricao|linebreaks }}</td>
+                <td>{{ requerimento.destino.descricao|linebreaks }}</td>
+                <td>
+                    <a href="{% url 'requerimento_detail' requerimento.id %}">
+                        {{ requerimento.justificativa|linebreaks }}
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td>
+                    Não a Dados na Tabela.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
 
 
-</table>
+    </table>
+</div>
 
 {% endblock content %}
